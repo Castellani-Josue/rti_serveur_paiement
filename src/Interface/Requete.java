@@ -1,2 +1,8 @@
-package Interface;public interface Requete {
+package Interface;
+
+import java.io.Serializable;
+
+public interface Requete extends Serializable
+{
+
 }

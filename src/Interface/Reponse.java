@@ -1,4 +1,4 @@
-package ServeurPaiement;
+package Interface;
 
 import java.io.Serializable;
 

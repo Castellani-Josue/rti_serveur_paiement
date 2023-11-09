@@ -1,4 +1,4 @@
-package ServeurPaiement;
+package Interface;
 
 public interface Logger
 {
