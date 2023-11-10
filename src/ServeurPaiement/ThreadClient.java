@@ -62,12 +62,7 @@ public abstract class ThreadClient extends Thread
                     oos.writeObject(reponse);
                 }
             }
-            catch (ExceptionConnexionFinie ex)
-            {
-                logger.Trace("Fin connexion demandée par protocole");
-                if (oos != null && ex.getReponse() != null)
-                    oos.writeObject(ex.getReponse());
-            } catch (SQLException e)
+            catch (SQLException e)
             {
                 throw new RuntimeException(e);
             }
