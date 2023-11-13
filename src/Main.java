@@ -15,6 +15,7 @@ public class Main
         Properties properties =new Properties();
 
 
+
         try (FileInputStream input = new FileInputStream("config.properties"))
         {
             properties.load(input);
@@ -25,7 +26,7 @@ public class Main
 
         // Lire les propriétés
         int port = Integer.parseInt(properties.getProperty("port", "50001"));
-        int threadCount = Integer.parseInt(properties.getProperty("thread", "10"));
+        int threadCount = Integer.parseInt(properties.getProperty("threadCount", "10"));
 
         VESPAP vespap = new VESPAP();
         Affichage affichage = new Affichage();
