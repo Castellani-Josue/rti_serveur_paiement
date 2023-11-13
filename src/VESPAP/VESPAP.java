@@ -1,8 +1,8 @@
 package VESPAP;
 
 import Interface.Protocole;
-import Interface.Requete;
 import Interface.Reponse;
+import Interface.Requete;
 
 import java.net.Socket;
 import java.sql.SQLException;
