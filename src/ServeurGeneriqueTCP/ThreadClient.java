@@ -3,6 +3,8 @@ import Interface.Logger;
 import Interface.Protocole;
 import Interface.Reponse;
 import Interface.Requete;
+import Messages.ReponseLOGIN;
+import Messages.RequeteLOGIN;
 
 import java.io.*;
 import java.net.Socket;
@@ -64,11 +66,15 @@ public abstract class ThreadClient extends Thread
                 logger.Trace("Fin connexion demandée par protocole");
                 if (oos != null && ex.getReponse() != null)
                     oos.writeObject(ex.getReponse());
-            } catch (SQLException e) {
+            }
+            catch (SQLException e) {
                 throw new RuntimeException(e);
             }
         }
-        catch (IOException ex) { logger.Trace("Erreur I/O"); }
+        catch (IOException ex) {
+            logger.Trace("Erreur I/O ThreadClient");
+            logger.Trace(ex.getMessage());
+        }
         catch (ClassNotFoundException ex) { logger.Trace("Erreur requete invalide");
         }
         finally
