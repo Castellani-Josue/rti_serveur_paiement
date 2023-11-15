@@ -2,6 +2,7 @@ package Interface;
 
 import Interface.Reponse;
 import Interface.Requete;
+import ServeurGeneriqueTCP.FinConnexionException;
 
 
 import java.net.Socket;
@@ -11,5 +12,5 @@ public interface Protocole
 {
     String getNom();
     Reponse TraiteRequete(Requete requete, Socket socket) throws
-             SQLException, ClassNotFoundException;
+             SQLException, ClassNotFoundException, FinConnexionException;
 }
