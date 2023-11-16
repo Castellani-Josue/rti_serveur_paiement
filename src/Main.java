@@ -1,14 +1,12 @@
-// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
-// then press Enter. You can now see whitespace characters in your code.
-
-import ServeurGeneriqueTCP.Affichage;
-import ServeurGeneriqueTCP.ThreadServeurPool;
+import Interface.Logger;
+import ServeurPaiement.Affichage;
+import ServeurPaiement.ThreadPoolServeur;
 import VESPAP.VESPAP;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
+
 
 public class Main
 {
@@ -16,14 +14,13 @@ public class Main
     {
         Properties properties =new Properties();
 
-        String filePath = "C:\\Users\\cycro\\IdeaProjects\\RTI\\rti_serveur_paiement-master\\src\\Config.properties";
-        try (FileInputStream input = new FileInputStream(filePath))
+
+
+        try (FileInputStream input = new FileInputStream("config.properties"))
         {
             properties.load(input);
         }
         catch (IOException e) {
-            String absolutePath = new File("Config.properties").getAbsolutePath();
-            System.out.println("Le fichier n'a pas été trouvé. Chemin absolu : " + absolutePath);
             throw new RuntimeException("Erreur lors du chargement du fichier de propriétés", e);
         }
 
@@ -33,12 +30,11 @@ public class Main
 
         VESPAP vespap = new VESPAP();
         Affichage affichage = new Affichage();
-        ThreadServeurPool threadPoolServeur;
+        ThreadPoolServeur threadPoolServeur;
 
         try
         {
-            threadPoolServeur = new ThreadServeurPool( port,vespap ,threadCount,affichage);
-            threadPoolServeur.run();
+             threadPoolServeur = new ThreadPoolServeur( port,vespap ,threadCount,affichage);
         }
         catch (IOException e)
         {
