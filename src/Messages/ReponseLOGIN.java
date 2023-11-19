@@ -21,7 +21,9 @@ public class ReponseLOGIN implements Reponse {
     public String getValide()
     {
         if(Valide)
+        {
             return "LOGIN#OK";
+        }
         else
         {
             if(cas == 1)

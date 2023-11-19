@@ -33,7 +33,7 @@ public class VESPAP implements Protocole
             RequeteLOGIN requeteLOGIN = (RequeteLOGIN) requete;
             if(methode.estPresent(requeteLOGIN.getLogin(), requeteLOGIN.getPassWord()))
             {
-                if(!methode.MdpCorrect(requeteLOGIN.getLogin(), requeteLOGIN.getPassWord()))
+                if(methode.MdpCorrect(requeteLOGIN.getLogin(), requeteLOGIN.getPassWord()))
                 {
                     ReponseLOGIN reponseLOGIN = new ReponseLOGIN(true);
                     reponse = reponseLOGIN;
