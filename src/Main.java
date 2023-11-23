@@ -13,7 +13,7 @@ public class Main
     {
         Properties properties =new Properties();
 
-        String filePath = "C:\\Users\\josue\\Java_Project_2023_2024\\rti_serveur_paiement\\src\\Config.properties";
+        String filePath = "C:\\Users\\cycro\\IdeaProjects\\RTI\\rti_serveur_paiement-master\\src\\Config.properties";
         try (FileInputStream input = new FileInputStream(filePath))
         {
             properties.load(input);

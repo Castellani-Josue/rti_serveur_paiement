@@ -19,7 +19,7 @@ public class FctProtocole
         try
         {
             dbConnect = new DatabaseConnection(DatabaseConnection.MYSQL,
-                    "192.168.137.129",
+                    "192.168.146.128",
                     "PourStudent",
                     "Student",
                     "PassStudent1_");
@@ -122,7 +122,7 @@ public class FctProtocole
     public String Recherche(int idClient)
     {
         String rechercheConcat = "GETFACTURE#";
-        String requete = "SELECT id, idClient, date, montant, paye FROM FACTURES WHERE idClient = '" + idClient + "' AND paye = false;";
+        String requete = "SELECT id, idClient, date, montant, paye FROM factures WHERE idClient = '" + idClient + "' AND paye = false;";
         ResultSet resultSet = null;
 
         String idFacture = "";
@@ -130,39 +130,39 @@ public class FctProtocole
         String dateFacture = "";
         String montantFacture = "";
         String paye = "";
+        Boolean datadedans = false;
 
         try
         {
             //Format reponse : GETFACTURE#ok#idFacture, idClient, date, montant, paye$idFacture, idClient...
 
             resultSet = dbConnect.executeQuery(requete);
-            if (!resultSet.next())
+
+            rechercheConcat += "ok#";
+            while(resultSet.next())
+            {
+                idFacture = resultSet.getString("id");
+                idClientFacture = resultSet.getString("idClient");
+                dateFacture = resultSet.getString("date");
+                montantFacture = resultSet.getString("montant");
+                paye = resultSet.getString("paye");
+
+                affichage.Trace("idFacture: " + idFacture);
+                affichage.Trace("idClientFacture: " + idClientFacture);
+                affichage.Trace("dateFacture: " + dateFacture);
+                affichage.Trace("montantFacture: " + montantFacture);
+                affichage.Trace("paye: " + paye);
+
+                rechercheConcat += idFacture + "," + idClientFacture + "," + dateFacture + "," + montantFacture + "," + paye + "$";
+                datadedans = true;
+            }
+
+            if (datadedans == false)
             {
                 affichage.Trace("Aucun enregistrement trouvé pour la recherche.");
                 rechercheConcat = rechercheConcat + "ko#Aucun enregistrement trouvé pour ce login.";
             }
-            else
-            {
-                rechercheConcat += "ok#";
-                while(resultSet.next())
-                {
-                    idFacture = resultSet.getString("id");
-                    idClientFacture = resultSet.getString("idClient");
-                    dateFacture = resultSet.getString("date");
-                    montantFacture = resultSet.getString("montant");
-                    paye = resultSet.getString("paye");
 
-                    affichage.Trace("idFacture: " + idFacture);
-                    affichage.Trace("idClientFacture: " + idClientFacture);
-                    affichage.Trace("dateFacture: " + dateFacture);
-                    affichage.Trace("montantFacture: " + montantFacture);
-                    affichage.Trace("paye: " + paye);
-
-                    rechercheConcat += idFacture + ", " + idClientFacture + ", " + dateFacture + ", " + montantFacture + ", " + paye + "$";
-                }
-
-                affichage.Trace("Resultat recherche: " + rechercheConcat);
-            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -194,7 +194,7 @@ public class FctProtocole
 
     public boolean GestionFacture(int idFacture)
     {
-        String requete = "UPDATE FACTURES SET paye = true WHERE id = " + idFacture + ";";
+        String requete = "UPDATE factures SET paye = true WHERE id = " + idFacture + ";";
 
         try
         {
